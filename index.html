@@ -14,34 +14,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<style>
-    body {
-        font-family: "Prompt", serif;
-        font-weight: 400;
-        font-style: normal;
-        background-color: rgb(248, 248, 248);
-    }
 
-    @media (min-width: 768px) {
-        .formcontent {
-            margin: 20px 250px;
-            /* ระยะห่างสำหรับหน้าจอกว้างกว่า 768px (Tablet, Desktop) */
-        }
-    }
-
-    @media (max-width: 767.98px) {
-        .formcontent {
-            margin: 20px 10px;
-            /* ระยะห่างสำหรับหน้าจอมือถือ */
-        }
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
 
 
 <body>
@@ -159,6 +135,116 @@
                     </div>
                     <ul class="list-group list-group-flush m-3">
                         <li class="list-group-item">
+
+                            <!-- ฝ้าบ้าน -->
+                            <div class="container mt-4">
+                                <label
+                                    class="form-label">ลักษณะของฝ้าบ้านหรือผนังห้องของที่พักอาศัยของท่านส่วนใหญ่เป็นอย่างไร
+                                    (ตอบได้มากกว่า 1 ข้อ)</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="wood">
+                                    <label class="form-check-label" for="wood">ไม้</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cement">
+                                    <label class="form-check-label" for="cement">ปูน</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cement-pattern">
+                                    <label class="form-check-label" for="cement-pattern">ปูนและมีการตกแต่งลาย</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="otherHouseCoverCheckbox"
+                                        onchange="toggleHouseCover()">
+                                    <label class="form-check-label" for="otherHouseCoverCheckbox">อื่นๆ</label>
+                                </div>
+                                <div id="DivHouseCover" class="mt-2" style="display: none;">
+                                    <input type="text" class="form-control" id="otherHouseCoverInput"
+                                        placeholder="โปรดระบุ">
+                                </div>
+                            </div>
+
+                            <!-- แอร์ -->
+                            <div class="mt-4">
+                                <label class="form-label">การระบายอากาศของห้องพักอาศัยของท่านเป็นอย่างไร</label>
+                                <small class="form-text text-muted">(สำหรับทำกิจกรรมนันทนาการ/ดูโทรทัศน์ หรือ
+                                    นอน)</small>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="airflow" id="airConditioning"
+                                        value="airConditioning" onclick="toggleOtherAirflowInput()">
+                                    <label class="form-check-label" for="airConditioning">มีเครื่องปรับอากาศ
+                                        (แอร์)</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="airflow" id="naturalVentilation"
+                                        value="naturalVentilation" onclick="toggleOtherAirflowInput()">
+                                    <label class="form-check-label"
+                                        for="naturalVentilation">ห้องโล่งใช้อากาศจากภายนอกและใช้พัดลม</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="airflow" id="otherAirflowOption"
+                                        value="other" onclick="toggleOtherAirflowInput()">
+                                    <label class="form-check-label" for="otherAirflowOption">อื่นๆ</label>
+                                </div>
+
+                                <div id="otherAirflowDiv" class="mt-2" style="display: none;">
+                                    <input type="text" class="form-control" id="otherAirflowInput"
+                                        placeholder="โปรดระบุรายละเอียด">
+                                </div>
+                            </div>
+
+                            <!-- ที่พัก -->
+                            <div class="mt-4">
+                                <label for="Duration_of_your">ระยะเวลาที่ท่านพักอาศัยในพื้นที่ปัจจุบัน (ปี)</label>
+                                <input type="number" class="form-control" id="Duration_of_your" name="Duration_of_your"
+                                    max="100" min="1" value="0" required>
+                            </div>
+
+                            <!-- ลักษณะที่ทำงาน -->
+                            <div class="mt-4">
+                                <label class="form-label">ลักษณะการทำงาน <span class="text-danger">*</span></label>
+                                <small class="form-text text-muted">(ตอบได้มากกว่า 1 ข้อ)</small>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="outdoorWork" name="workType">
+                                    <label class="form-check-label" for="outdoorWork">ทำงานกลางแจ้ง</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="indoorNoAC" name="workType">
+                                    <label class="form-check-label" for="indoorNoAC">ทำงานในอาคาร/ห้องแบบเปิดโล่ง
+                                        แต่ไม่มีเครื่องปรับอากาศ</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="indoorWithAC" name="workType">
+                                    <label class="form-check-label"
+                                        for="indoorWithAC">ทำงานในอาคาร/ห้องที่มีเครื่องปรับอากาศ</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="otherWorkType" name="workType"
+                                        onchange="toggleOtherWorkInput()">
+                                    <label class="form-check-label" for="otherWorkType">อื่นๆ</label>
+                                </div>
+
+                                <div id="otherWorkDiv" class="mt-2" style="display: none;">
+                                    <input type="text" class="form-control" id="otherWorkInput" placeholder="โปรดระบุ">
+                                </div>
+                            </div>
+
+                            <!-- ทำงานกลางแจ้ง -->
+                            <div class="mt-4">
+                                <label for="Duration_of_your">กรณีตอบ “ทำงานกลางแจ้ง”
+                                    โปรดระบุระยะเวลาทำงานกลางแจ้งต่อวันโดยประมาณ (ชั่วโมง)</label>
+                                <div>* ไม่ได้ทำงานกลางแจ้งระบุเป็น 0 ชั่วโมง</div>
+                                <input type="number" class="form-control" id="Duration_of_your" name="Duration_of_your"
+                                    max="24" min="1" value="0" required>
+                            </div><br>
+
                             <!-- คำถามโรคประจำตัว -->
                             <div class="mb-3">
                                 <label class="form-label">ท่านมีโรคประจำตัวที่ได้รับการวินิจฉัยจากแพทย์หรือไม่ <span
@@ -199,27 +285,144 @@
                                         value="อื่น">
                                     <label class="form-check-label" for="diseaseOther">อื่นๆ:</label>
                                     <input type="text" class="form-control mt-2" id="diseaseOtherText"
-                                        name="diseaseOtherText" placeholder="กรุณาระบุ" disabled>
+                                        style="display: none;" name="diseaseOtherText" placeholder="กรุณาระบุ">
                                 </div>
                             </div>
 
                             <!-- คำถามการสูบบุหรี่ -->
                             <div id="smokingSection" class="mb-3 hidden">
-                                <label class="form-label">ท่านสูบบุหรี่หรือไม่</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="smoking" id="smoking1"
-                                        value="ไม่สูบ">
-                                    <label class="form-check-label" for="smoking1">ไม่สูบ</label>
+                                <div class="mb-4">
+                                    <label class="form-label">ท่านสูบบุหรี่หรือไม่</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="smoking1"
+                                            value="ไม่สูบ">
+                                        <label class="form-check-label" for="smoking1">ไม่สูบ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="smoking2"
+                                            value="สูบ">
+                                        <label class="form-check-label" for="smoking2">สูบ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="smoking3"
+                                            value="เคยสูบแต่เลิกสูบแล้ว">
+                                        <label class="form-check-label" for="smoking3">เคยสูบแต่เลิกสูบแล้ว</label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="smoking" id="smoking2"
-                                        value="สูบ">
-                                    <label class="form-check-label" for="smoking2">สูบ</label>
+
+                                <!-- การสูบบุหรี่ -->
+                                <div class="mb-4">
+                                    <label class="form-label">สมาชิกในบ้านของท่านสูบบุหรี่หรือไม่</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="noSmoke"
+                                            value="no" required>
+                                        <label class="form-check-label" for="noSmoke">ไม่สูบ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="yesSmoke"
+                                            value="yes" required>
+                                        <label class="form-check-label" for="yesSmoke">สูบ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="smoking" id="quitSmoke"
+                                            value="quit" required>
+                                        <label class="form-check-label" for="quitSmoke">เคยสูบแต่เลิกสูบแล้ว</label>
+                                    </div>
                                 </div>
+
+                                <!-- ห้องปลอดฝุ่น -->
+                                <div class="mb-4">
+                                    <label class="form-label">ที่พักของท่านมีห้องปลอดฝุ่นหรือห้องสะอาด (clean room)
+                                        หรือไม่</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cleanroom" id="noClean"
+                                            value="no" required>
+                                        <label class="form-check-label" for="noClean">ไม่มี</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cleanroom" id="yesClean"
+                                            value="yes" required>
+                                        <label class="form-check-label" for="yesClean">มี</label>
+                                    </div>
+                                </div>
+
+                                <!-- แหล่งกำเนิดฝุ่นละออง -->
+                                <div class="mb-4">
+                                    <label class="form-label">ในช่วง 7 วันที่ผ่านมา ในที่พักอาศัยของท่าน
+                                        หรือบริเวณใกล้เคียงที่พักอาศัยของท่าน หรือบริเวณใกล้เคียงที่ทำงานของท่าน
+                                        <u>มีแหล่งกำเนิดฝุ่นละอองหรือไม่</u> (รัศมี 5 กิโลเมตร)</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dustSource" id="noDust"
+                                            value="no" required>
+                                        <label class="form-check-label" for="noDust">ไม่มี</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="dustSource" id="yesDust"
+                                            value="yes" required>
+                                        <label class="form-check-label" for="yesDust">มี</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="mt-4">
+                                <label class="form-label">แหล่งกำเนิดฝุ่นละออง (รัศมี 5 กิโลเมตร)</label>
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="smoking" id="smoking3"
-                                        value="เคยสูบแต่เลิกสูบแล้ว">
-                                    <label class="form-check-label" for="smoking3">เคยสูบแต่เลิกสูบแล้ว</label>
+                                    <input class="form-check-input" type="checkbox" id="source1" name="dustSource"
+                                        value="หุงต้มด้วยถ่าน">
+                                    <label class="form-check-label" for="source1">หุงต้มด้วยถ่าน</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source2" name="dustSource"
+                                        value="เผาใบไม้/ขยะเผาใบไม้/ขยะ">
+                                    <label class="form-check-label" for="source2">เผาใบไม้/ขยะเผาใบไม้/ขยะ</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source3" name="dustSource"
+                                        value="เผาป่า">
+                                    <label class="form-check-label" for="source3">เผาป่า</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source4" name="dustSource"
+                                        value="เผาถ่าน">
+                                    <label class="form-check-label" for="source4">เผาถ่าน</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source5" name="dustSource"
+                                        value="ก่อสร้าง">
+                                    <label class="form-check-label" for="source5">ก่อสร้าง</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source6" name="dustSource"
+                                        value="โรงงาน">
+                                    <label class="form-check-label" for="source6">โรงงาน</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source7" name="dustSource"
+                                        value="เผาผลิตผลการเกษตร">
+                                    <label class="form-check-label" for="source7">เผาผลิตผลการเกษตร เช่น อ้อย ตอซังข้าว
+                                        ข้าวโพด ฯลฯ</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="source8" name="dustSource"
+                                        value="จุดธูป/ศาลเจ้า">
+                                    <label class="form-check-label" for="source8">จุดธูป/ศาลเจ้า</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="sourceOther"
+                                        onchange="toggleOtherSourceInput()">
+                                    <label class="form-check-label" for="sourceOther">อื่นๆ:</label>
+                                    <input type="text" class="form-control mt-2" id="otherSourceInput"
+                                        style="display: none;" placeholder="กรุณาระบุ">
                                 </div>
                             </div>
                         </li>
@@ -228,56 +431,495 @@
 
                 <div class="card" style="color: white;">
                     <div class="card-header bg-primary">
-                        หัวข้อ
+                        ส่วนที่ 2 ประวัติการเจ็บป่วย
                     </div>
                     <ul class="list-group list-group-flush m-3">
                         <li class="list-group-item">
+
+                            <!-- อาการใน 4 กลุ่มโรค -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">ในช่วง 7 วันที่ผ่านมา จนถึงปัจจุบัน ท่าน <u>มีอาการใน
+                                        4 กลุ่มโรค</u> หรือไม่ *</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="diseaseCondition" id="noDisease"
+                                        value="no" required onclick="toggleSections(false)">
+                                    <label class="form-check-label" for="noDisease">ไม่มีอาการ</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="diseaseCondition" id="yesDisease"
+                                        value="yes" required onclick="toggleSections(true)">
+                                    <label class="form-check-label" for="yesDisease">มีอาการ</label>
+                                </div>
+                            </div>
+
+
+
+                            <!-- อาการระบบทางเดินหายใจ -->
+                            <div id="respiratorySection" class="mb-4" style="display: none;">
+
+                                <!-- อาการระบบโรคหัวใจและหลอดเลือด -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">มีอาการระบบทางเดินหายใจหรือไม่</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cardioCondition"
+                                            id="yesCardio" value="yes" required onclick="toggleCardioSection(true)">
+                                        <label class="form-check-label" for="yesCardio">มีอาการ</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cardioCondition"
+                                            id="noCardio" value="no" required onclick="toggleCardioSection(false)">
+                                        <label class="form-check-label" for="noCardio">ไม่มีอาการ</label>
+                                    </div>
+                                </div>
+
+                                <!-- รายการประเมินสำหรับไม่มีอาการ -->
+                                <div id="noSymptomsSection" class="mb-4" style="display: none;">
+                                    <!-- อาการทางตา -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">มีอาการทางตาหรือไม่ *</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="eyeCondition" id="yesEye"
+                                                value="yes" required onclick="toggleEyeSection(true)">
+                                            <label class="form-check-label" for="yesEye">มีอาการ</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="eyeCondition" id="noEye"
+                                                value="no" required onclick="toggleEyeSection(false)">
+                                            <label class="form-check-label" for="noEye">ไม่มีอาการ</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- รายการอาการเมื่อมีอาการ -->
+                                    <div id="eyeSymptomsSection" class="mb-4" style="display: none;">
+                                        <label class="form-label"><strong>อาการทางตา <span
+                                                    class="text-danger">*</span></strong></label>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom1"
+                                                name="eyeSymptoms" value="ตาแดง">
+                                            <label class="form-check-label" for="symptom1">ตาแดง</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom2"
+                                                name="eyeSymptoms" value="แสบตา">
+                                            <label class="form-check-label" for="symptom2">แสบตา</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom3"
+                                                name="eyeSymptoms" value="เคืองตา">
+                                            <label class="form-check-label" for="symptom3">เคืองตา</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom4"
+                                                name="eyeSymptoms" value="น้ำตาไหลมาก">
+                                            <label class="form-check-label" for="symptom4">น้ำตาไหลมาก</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom5"
+                                                name="eyeSymptoms" value="คันตา">
+                                            <label class="form-check-label" for="symptom5">คันตา</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom6"
+                                                name="eyeSymptoms" value="มีสารคัดหลั่ง / มีขี้ตา">
+                                            <label class="form-check-label" for="symptom6">มีสารคัดหลั่ง /
+                                                มีขี้ตา</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="symptom7"
+                                                name="eyeSymptoms" value="มองภาพไม่ชัด">
+                                            <label class="form-check-label" for="symptom7">มองภาพไม่ชัด</label>
+                                        </div>
+
+                                        <!-- ตัวเลือกอื่นๆ -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="otherSymptomCheckbox"
+                                                onchange="toggleOtherSymptomInput()">
+                                            <label class="form-check-label" for="otherSymptomCheckbox">อื่นๆ:</label>
+                                            <input type="text" class="form-control mt-2" id="otherSymptomInput"
+                                                style="display: none;" placeholder="กรุณาระบุอาการอื่นๆ">
+                                        </div>
+                                    </div>
+
+                                    <!-- แสดงเมื่อไม่มีอาการ -->
+                                    <div id="noEyeSymptomsSection" class="mb-4" style="display: none;">
+                                        <label class="form-label fw-bold">มีอาการทางผิวหนังหรือไม่ *</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="skinCondition"
+                                                id="yesSkin" value="yes" required onclick="toggleSkinSection(true)">
+                                            <label class="form-check-label" for="yesSkin">มีอาการ</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="skinCondition"
+                                                id="noSkin" value="no" required onclick="toggleSkinSection(false)">
+                                            <label class="form-check-label" for="noSkin">ไม่มีอาการ</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- รายการอาการเมื่อมีอาการ -->
+                                    <div id="skinSymptomsSection" class="mb-4" style="display: none;">
+                                        <label class="form-label"><strong>อาการทางผิวหนัง <span
+                                                    class="text-danger">*</span></strong></label>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom1"
+                                                name="skinSymptoms" value="มีผื่นแดง">
+                                            <label class="form-check-label" for="skinSymptom1">มีผื่นแดง</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom2"
+                                                name="skinSymptoms" value="คันตามร่างกาย">
+                                            <label class="form-check-label" for="skinSymptom2">คันตามร่างกาย</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom3"
+                                                name="skinSymptoms" value="มีตุ่มแดง">
+                                            <label class="form-check-label" for="skinSymptom3">มีตุ่มแดง</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom4"
+                                                name="skinSymptoms" value="มีตุ่มน้ำ">
+                                            <label class="form-check-label" for="skinSymptom4">มีตุ่มน้ำ</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom5"
+                                                name="skinSymptoms" value="ผิวหนังเป็นขุย/ลอก">
+                                            <label class="form-check-label"
+                                                for="skinSymptom5">ผิวหนังเป็นขุย/ลอก</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="skinSymptom6"
+                                                name="skinSymptoms" value="มีผื่นบวม นูน แดง (ผื่นลมพิษ)">
+                                            <label class="form-check-label" for="skinSymptom6">มีผื่นบวม นูน แดง
+                                                (ผื่นลมพิษ)</label>
+                                        </div>
+
+                                        <!-- ตัวเลือกอื่นๆ -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                id="otherSkinSymptomCheckbox" onchange="toggleOtherSkinSymptomInput()">
+                                            <label class="form-check-label"
+                                                for="otherSkinSymptomCheckbox">อื่นๆ:</label>
+                                            <input type="text" class="form-control mt-2" id="otherSkinSymptomInput"
+                                                style="display: none;" placeholder="กรุณาระบุอาการอื่นๆ">
+                                        </div>
+                                    </div>
+
+                                    <!-- แสดงเมื่อไม่มีอาการ -->
+                                    <div id="noSkinSymptomsSection" class="mb-4" style="display: none;">
+                                        <label class="form-label fw-bold">ในช่วง 7 วันที่ผ่านมา จนถึงปัจจุบัน
+                                            ท่านเข้ารับการรักษาใน 4 กลุ่มโรคข้างต้น หรือไม่ *</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="treatment"
+                                                id="noTreatment" value="no" required>
+                                            <label class="form-check-label" for="noTreatment">ไม่ได้รักษา</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="treatment"
+                                                id="yesTreatment" value="yes" required>
+                                            <label class="form-check-label" for="yesTreatment">รักษา</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- รักษา -->
+                                    <div id="" class="mb-4" style="display: none;">
+                                        <label class="form-label fw-bold">ท่านเข้ารับการรักษาใน 4 กลุ่มโรคข้างต้น
+                                            อย่างไร</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="treat" id="notreat"
+                                                value="no" required>
+                                            <label class="form-check-label" for="notreat">ซื้อยารับประทานเอง</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="treat" id="yestreat"
+                                                value="yes" required>
+                                            <label class="form-check-label" for="yestreat">เข้ารับการรักษา ณ
+                                                หน่วยบริการสุขภาพ</label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- รายการอาการสำหรับมีอาการ -->
+                                <div id="symptomsSection" class="mb-4" style="display: none;">
+                                    <label class="form-label"><strong>อาการระบบทางเดินหายใจ <span
+                                                class="text-danger">*</span></strong></label>
+                                    <small class="form-text text-muted">กรุณาเลือกอย่างน้อย 1 ข้อ</small>
+
+                                    <!-- รายการอาการ -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom1"
+                                            name="respiratorySymptoms" value="หอบเหนื่อย">
+                                        <label class="form-check-label" for="symptom1">หอบเหนื่อย</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom2"
+                                            name="respiratorySymptoms" value="หอบเหนื่อยมากกว่าปกติ">
+                                        <label class="form-check-label" for="symptom2">หอบเหนื่อยมากกว่าปกติ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom3"
+                                            name="respiratorySymptoms" value="ไอ/ไอแห้ง ๆ">
+                                        <label class="form-check-label" for="symptom3">ไอ/ไอแห้ง ๆ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom4"
+                                            name="respiratorySymptoms" value="ไอมากขึ้นกว่าปกติ">
+                                        <label class="form-check-label" for="symptom4">ไอมากขึ้นกว่าปกติ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom5"
+                                            name="respiratorySymptoms" value="ไอมีเสมหะ">
+                                        <label class="form-check-label" for="symptom5">ไอมีเสมหะ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom6"
+                                            name="respiratorySymptoms" value="มีเสมหะมากขึ้นกว่าปกติ">
+                                        <label class="form-check-label" for="symptom6">มีเสมหะมากขึ้นกว่าปกติ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom7"
+                                            name="respiratorySymptoms" value="แน่นหน้าอก">
+                                        <label class="form-check-label" for="symptom7">แน่นหน้าอก</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom8"
+                                            name="respiratorySymptoms" value="เหนื่อยง่าย">
+                                        <label class="form-check-label" for="symptom8">เหนื่อยง่าย</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom9"
+                                            name="respiratorySymptoms" value="หายใจมีเสียงหวีด">
+                                        <label class="form-check-label" for="symptom9">หายใจมีเสียงหวีด</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom10"
+                                            name="respiratorySymptoms" value="หายใจลำบาก">
+                                        <label class="form-check-label" for="symptom10">หายใจลำบาก</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom11"
+                                            name="respiratorySymptoms" value="คัดจมูก">
+                                        <label class="form-check-label" for="symptom11">คัดจมูก</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom12"
+                                            name="respiratorySymptoms" value="แสบจมูก">
+                                        <label class="form-check-label" for="symptom12">แสบจมูก</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom13"
+                                            name="respiratorySymptoms" value="มีน้ำมูก">
+                                        <label class="form-check-label" for="symptom13">มีน้ำมูก</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom14"
+                                            name="respiratorySymptoms" value="เสมหะเปลี่ยนสี">
+                                        <label class="form-check-label" for="symptom14">เสมหะเปลี่ยนสี</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom15"
+                                            name="respiratorySymptoms" value="แสบคอ">
+                                        <label class="form-check-label" for="symptom15">แสบคอ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom16"
+                                            name="respiratorySymptoms" value="เสียงแหบ">
+                                        <label class="form-check-label" for="symptom16">เสียงแหบ</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="symptom17"
+                                            name="respiratorySymptoms" value="เลือดกำเดาไหล">
+                                        <label class="form-check-label" for="symptom17">เลือดกำเดาไหล</label>
+                                    </div>
+
+                                    <!-- ตัวเลือกอื่นๆ -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="otherSymptomCheckbox"
+                                            onchange="toggleOtherSymptomInput()">
+                                        <label class="form-check-label" for="otherSymptomCheckbox">อื่นๆ:</label>
+                                        <input type="text" class="form-control mt-2" id="otherSymptomInput"
+                                            style="display: none;" placeholder="กรุณาระบุอาการอื่นๆ">
+                                    </div>
+                                </div>
+
+                                <!-- รายการประเมิน -->
+                                <div id="assessmentSection" class="mb-4" style="display: none;">
+                                    <label class="form-label fw-bold">รายการประเมิน *</label>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>หัวข้อ</th>
+                                                <th>ปฏิบัติเป็นประจำ</th>
+                                                <th>ปฏิบัติบางครั้ง</th>
+                                                <th>ไม่เคยปฏิบัติ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ตรวจเช็คค่าฝุ่น PM2.5 ก่อนออกจากที่พักอาศัย</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ลดระยะเวลาออกทำกิจกรรมนอกที่พักอาศัย</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>งดออกกำลังกายกลางแจ้ง</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ปิดประตูหน้าต่างของที่พักอาศัยให้มิดชิด</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>งดการจุดธูป จุดเทียน เทียนหอม ยาจุดกันยุง ในที่พักอาศัย</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>งดการเผาขยะ เผาป่า หรือเศษวัสดุทางการเกษตร (อ้อย/ตอซังข้าว/ข้าวโพด)
+                                                </td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>สวมใส่หน้ากากผ้า/หน้ากากอนามัย ก่อนออกจากที่พักอาศัย</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td>สวมใส่หน้ากาก N95 ก่อนออกจากที่พักอาศัย</td>
+                                                <td><input type="radio" name="pmCheck" value="regular" required></td>
+                                                <td><input type="radio" name="pmCheck" value="sometimes" required></td>
+                                                <td><input type="radio" name="pmCheck" value="never" required></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
                         </li>
                     </ul>
                 </div><br>
 
                 <div class="card" style="color: white;">
                     <div class="card-header bg-primary">
-                        ส่วนที่ 3 พฤติกรรมการป้องกันฝุ่น PM2.5
+                        ผู้เก็บข้อมูล
                     </div>
                     <ul class="list-group list-group-flush m-3">
                         <li class="list-group-item">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>หัวข้อ</th>
-                                        <th>ปฏิบัติเป็นประจำ</th>
-                                        <th>ปฏิบัติบางครั้ง</th>
-                                        <th>ไม่เคยปฏิบัติ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>ตรวจเช็คค่าฝุ่น PM2.5 ก่อนออกจากที่พักอาศัย</td>
-                                        <td><input type="radio" name="row1" value="ปฏิบัติเป็นประจำ" required></td>
-                                        <td><input type="radio" name="row1" value="ปฏิบัติบางครั้ง"></td>
-                                        <td><input type="radio" name="row1" value="ไม่เคยปฏิบัติ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>ลดระยะเวลาการออกทำกิจกรรมนอกที่พักอาศัย</td>
-                                        <td><input type="radio" name="row2" value="ปฏิบัติเป็นประจำ" required></td>
-                                        <td><input type="radio" name="row2" value="ปฏิบัติบางครั้ง"></td>
-                                        <td><input type="radio" name="row2" value="ไม่เคยปฏิบัติ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>งดออกกำลังกายกลางแจ้ง</td>
-                                        <td><input type="radio" name="row3" value="ปฏิบัติเป็นประจำ" required></td>
-                                        <td><input type="radio" name="row3" value="ปฏิบัติบางครั้ง"></td>
-                                        <td><input type="radio" name="row3" value="ไม่เคยปฏิบัติ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>ปิดประตูหน้าต่างของที่พักอาศัยให้มิดชิด</td>
-                                        <td><input type="radio" name="row4" value="ปฏิบัติเป็นประจำ" required></td>
-                                        <td><input type="radio" name="row4" value="ปฏิบัติบางครั้ง"></td>
-                                        <td><input type="radio" name="row4" value="ไม่เคยปฏิบัติ"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                            <!-- คำนำหน้าชื่อ -->
+                            <div>
+                                <label class="form-label" for="prefixSelect">คำนำหน้าชื่อ</label>
+                                <select class="form-select" id="prefixSelect" name="prefix"
+                                    onchange="toggleOtherPrefixInput()">
+                                    <option value="">-- กรุณาเลือก --</option>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นางสาว">นางสาว</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นายแพทย์">นายแพทย์</option>
+                                    <option value="แพทย์หญิง">แพทย์หญิง</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                            </div>
+                            <div id="otherPrefixDiv" class="mt-2" style="display: none;">
+                                <input type="text" class="form-control" id="otherPrefixInput" name="otherPrefix"
+                                    placeholder="กรุณาระบุ">
+                            </div>
+
+                            <!-- ชื่อ - สกุล -->
+                            <div>
+                                <label class="form-label mt-3">ชื่อ - สกุล</label>
+                                <input type="text" class="form-control" id="fullname" placeholder="กรอกชื่อและนามสกุล"
+                                    required>
+                            </div>
+
+                            <!-- ตำแหน่ง -->
+                            <div>
+                                <label class="form-label mt-3" for="positionSelect">ตำแหน่ง (Ex.
+                                    นักวิชาการสาธารณสุขปฏิบัติการ)</label>
+                                <select class="form-select" id="positionSelect" name="position"
+                                    onchange="toggleOtherPositionInput()">
+                                    <option value="">-- กรุณาเลือก --</option>
+                                    <option value="อสม.">อสม.</option>
+                                    <option value="นักวิชาการสาธารณสุข">นักวิชาการสาธารณสุข</option>
+                                    <option value="นักสาธารณสุข">นักสาธารณสุข</option>
+                                    <option value="พยาบาลวิชาชีพ">พยาบาลวิชาชีพ</option>
+                                    <option value="เจ้าพนักงานสาธารณสุข">เจ้าพนักงานสาธารณสุข</option>
+                                    <option value="นักวิทยาศาสตร์การแพทย์">นักวิทยาศาสตร์การแพทย์</option>
+                                    <option value="นายแพทย์">นายแพทย์</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                            </div>
+                            <div id="otherPositionDiv" class="mt-2" style="display: none;">
+                                <input type="text" class="form-control" id="otherPositionInput" name="otherPosition"
+                                    placeholder="กรุณาระบุตำแหน่งอื่นๆ">
+                            </div>
+
+                            <!-- ระดับ -->
+                            <div>
+                                <label class="form-label mt-3" for="levelSelect">ระดับ</label>
+                                <select class="form-select" id="levelSelect" name="level"
+                                    onchange="toggleOtherLevelInput()">
+                                    <option value="">-- กรุณาเลือก --</option>
+                                    <option value="ปฏิบัติการ">ปฏิบัติการ</option>
+                                    <option value="ชำนาญการ">ชำนาญการ</option>
+                                    <option value="ชำนาญการพิเศษ">ชำนาญการพิเศษ</option>
+                                    <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                                    <option value="ปฏิบัติงาน">ปฏิบัติงาน</option>
+                                    <option value="ชำนาญงาน">ชำนาญงาน</option>
+                                    <option value="อาวุโส">อาวุโส</option>
+                                    <option value="ไม่มี">ไม่มี</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                            </div>
+                            <div id="otherLevelDiv" class="mt-2" style="display: none;">
+                                <input type="text" class="form-control" id="otherLevelInput" name="otherLevel"
+                                    placeholder="กรุณาระบุระดับอื่นๆ">
+                            </div>
+
                         </li>
                     </ul>
                 </div><br>
@@ -296,56 +938,4 @@
 
 </html>
 
-<script>
-    function toggleOtherInput() {
-        const occupationSelect = document.getElementById("occupation");
-        const otherOccupationDiv = document.getElementById("other-occupation-div");
-        const otherOccupationInput = document.getElementById("other-occupation");
-
-        if (occupationSelect.value === "อื่น") {
-            otherOccupationDiv.style.display = "block"; // แสดง input
-            otherOccupationInput.required = true; // บังคับให้กรอก
-        } else {
-            otherOccupationDiv.style.display = "none"; // ซ่อน input
-            otherOccupationInput.required = false; // ยกเลิกการบังคับกรอก
-            otherOccupationInput.value = ""; // ล้างข้อมูลในช่อง input
-        }
-    }
-
-    function toggleDiseaseSection(showDisease) {
-        const diseaseSection = document.getElementById("diseaseSection");
-        const smokingSection = document.getElementById("smokingSection");
-        const diseaseCheckboxes = diseaseSection.querySelectorAll("input[type='checkbox']");
-        const diseaseOtherText = document.getElementById("diseaseOtherText");
-        const smokingRadios = smokingSection.querySelectorAll("input[type='radio']");
-
-        if (showDisease) {
-            // แสดงส่วนโรคประจำตัว
-            diseaseSection.classList.remove("hidden");
-            smokingSection.classList.add("hidden");
-            // รีเซ็ตการเลือกของส่วนสูบบุหรี่
-            smokingRadios.forEach(radio => {
-                radio.checked = false;
-            });
-        } else {
-            // ซ่อนส่วนโรคประจำตัวและล้างค่า
-            diseaseSection.classList.add("hidden");
-            smokingSection.classList.remove("hidden");
-            diseaseCheckboxes.forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            diseaseOtherText.value = "";
-            diseaseOtherText.disabled = true;
-        }
-    }
-
-    document.getElementById("diseaseOther").addEventListener("change", function () {
-        const diseaseOtherText = document.getElementById("diseaseOtherText");
-        if (this.checked) {
-            diseaseOtherText.disabled = false;
-        } else {
-            diseaseOtherText.disabled = true;
-            diseaseOtherText.value = "";
-        }
-    });
-</script>
+<script src="script.js"></script>
