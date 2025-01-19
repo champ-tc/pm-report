@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสอบถามข้อมูล</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<style>
+    body {
+        font-family: "Prompt", serif;
+        font-weight: 400;
+        font-style: normal;
+        background-color: rgb(248, 248, 248);
+    }
+
+    @media (min-width: 768px) {
+        .formcontent {
+            margin: 20px 250px;
+            /* ระยะห่างสำหรับหน้าจอกว้างกว่า 768px (Tablet, Desktop) */
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .formcontent {
+            margin: 20px 10px;
+            /* ระยะห่างสำหรับหน้าจอมือถือ */
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+
+<body>
+
+
+    <div class="container-fluid p-5">
+        <div class="formcontent">
+
+            <form>
+
+                <div class="card">
+                    <img src="./banner google forms.png" alt="">
+                    <div class="p-5">
+                        <p>
+                            Beta test <br>
+                            วัตถุประสงค์ <br>
+                            เพื่อรวบรวมข้อมูลผลกระทบทางสุขภาพจากมลพิษทางอากาศ กรณีหมอกควันและฝุ่นละอองขนาดเล็ก
+                        </p>
+                        <p>
+                            คำชี้แจง <br>
+                            1. ให้เจ้าหน้าที่สาธารณสุข หรือ อสม. ทำการเก็บข้อมูลในชุมชน (ระดับหมู่บ้าน)
+                            ที่ตั้งอยู่ในพื้นที่สีแดงติดต่อกัน 3 วัน โดยเจ้าหน้าที่ฯ สอบถามเน้นในประชาชนกลุ่มเปราะบาง
+                            (เด็ก
+                            ผู้สูงอายุ หญิงมีครรภ์ ผู้มีโรคประจำตัว และผู้ป่วยติดเตียง)
+                            และข้อมูลในเอกสารฉบับนี้จะถูกเก็บเป็นความลับ ไม่เปิดเผยตัวบุคคล และใช้เพื่อการศึกษา วิจัย
+                            และวิเคราะห์ผลกระทบทางสุขภาพฯ เท่านั้น <br>
+                            2. แบบสอบถามประกอบด้วย 3 ส่วน ได้แก่ ส่วนที่ 1 ข้อมูลทั่วไป/ประวัติการเจ็บป่วยในอดีต ส่วนที่
+                            2
+                            ประวัติการเจ็บป่วย ส่วนที่ 3 พฤติกรรมการป้องกันฝุ่น PM2.5 <br>
+                            3.
+                            โปรดกรอกข้อความลงในช่องว่างหรือทำเครื่องหมายหน้าข้อความที่ตรงกับความเป็นจริงและครบถ้วนมากที่สุด
+                        </p>
+                    </div>
+                </div><br>
+
+                <div class="card" style="color: white;">
+                    <div class="card-header bg-primary">
+                        แบบสอบถามเพื่อประเมินการสัมผัสและอาการที่เกี่ยวข้องกับมลพิษอากาศ (หมอกควันและฝุ่นละอองขนาดเล็ก)
+                        เชิงรุก
+                    </div>
+                    <ul class="list-group list-group-flush m-3">
+                        <li class="list-group-item">
+                            <div class="row pt-3">
+                                <div class="col-12 col-md-4">
+                                    <label for="age">อายุ (ปี)</label>
+                                    <input type="number" class="form-control" id="age" name="age" max="100" min="1"
+                                        value="0" required>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="sex">เพศ</label>
+                                    <select class="form-select" aria-label="Default select example" id="sex" name="sex"
+                                        required>
+                                        <option value="" selected disabled> - โปรดเลือก - </option>
+                                        <option value="ชาย">ชาย</option>
+                                        <option value="หญิง">หญิง</option>
+                                        <option value="เพศทางเลือก (LGBTQ+)">เพศทางเลือก (LGBTQ+)</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="occupation">อาชีพหลัก</label>
+                                    <select class="form-select" aria-label="Default select example" name="occupation"
+                                        id="occupation" onchange="toggleOtherInput()" required>
+                                        <option value="" selected disabled> - โปรดเลือก - </option>
+                                        <option value="รับราชการ/รัฐวิสาหกิจ">รับราชการ/รัฐวิสาหกิจ</option>
+                                        <option value="พนักงานบริษัท/เอกชน">พนักงานบริษัท/เอกชน</option>
+                                        <option value="นักเรียน/นักศึกษา">นักเรียน/นักศึกษา</option>
+                                        <option value="เกษตรกร">เกษตรกร</option>
+                                        <option value="รับจ้างทั่วไป">รับจ้างทั่วไป</option>
+                                        <option value="ค้าขาย/ธุรกิจส่วนตัว">ค้าขาย/ธุรกิจส่วนตัว</option>
+                                        <option value="ว่างงาน/ไม่มีงานทำแน่นอน">ว่างงาน/ไม่มีงานทำแน่นอน</option>
+                                        <option value="อื่น">อื่นๆ:</option>
+                                    </select>
+                                </div>
+                                <div id="other-occupation-div" style="display: none; margin-top: 10px;">
+                                    <label for="other-occupation">กรุณาระบุอาชีพ</label>
+                                    <input type="text" class="form-control" id="other-occupation"
+                                        name="other-occupation" />
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-12 col-md-3">
+                                    <label for="changwat">จังหวัด</label>
+                                    <select class="form-select" aria-label="Default select example" id="changwat"
+                                        name="changwat" required>
+                                        <option value="www" selected> - โปรดเลือก - </option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label for="ampur">อำเภอ</label>
+                                    <select class="form-select" aria-label="Default select example" id="ampur"
+                                        name="ampur" required>
+                                        <option value="www" selected> - โปรดเลือก - </option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label for="tambon">ตำบล</label>
+                                    <select class="form-select" aria-label="Default select example" id="tambon"
+                                        name="tambon" required>
+                                        <option value="www" selected> - โปรดเลือก - </option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label for="village">หมู่</label>
+                                    <input type="text" class="form-control" id="village" name="village" required>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div><br>
+
+                <div class="card" style="color: white;">
+                    <div class="card-header bg-primary">
+                        หัวข้อ
+                    </div>
+                    <ul class="list-group list-group-flush m-3">
+                        <li class="list-group-item">
+                            <!-- คำถามโรคประจำตัว -->
+                            <div class="mb-3">
+                                <label class="form-label">ท่านมีโรคประจำตัวที่ได้รับการวินิจฉัยจากแพทย์หรือไม่ <span
+                                        class="text-danger">*</span></label><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hasDisease" id="hasDiseaseYes"
+                                        value="มี" required onchange="toggleDiseaseSection(true)">
+                                    <label class="form-check-label" for="hasDiseaseYes">มี</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hasDisease" id="hasDiseaseNo"
+                                        value="ไม่มี" onchange="toggleDiseaseSection(false)">
+                                    <label class="form-check-label" for="hasDiseaseNo">ไม่มีโรคประจำตัว</label>
+                                </div>
+                            </div>
+
+                            <!-- รายการโรคประจำตัว -->
+                            <div id="diseaseSection" class="mb-3 hidden">
+                                <label class="form-label">โรคประจำตัวที่ได้รับการวินิจฉัยจากแพทย์ (เลือกได้มากกว่า 1
+                                    ข้อ) <span class="text-danger">*</span></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="disease" id="disease1"
+                                        value="โรคหืด">
+                                    <label class="form-check-label" for="disease1">โรคหืด</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="disease" id="disease2"
+                                        value="โรคปอดอุดกั้นเรื้อรัง">
+                                    <label class="form-check-label" for="disease2">โรคปอดอุดกั้นเรื้อรัง</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="disease" id="disease3"
+                                        value="โรคความดันโลหิตสูง">
+                                    <label class="form-check-label" for="disease3">โรคความดันโลหิตสูง</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="disease" id="diseaseOther"
+                                        value="อื่น">
+                                    <label class="form-check-label" for="diseaseOther">อื่นๆ:</label>
+                                    <input type="text" class="form-control mt-2" id="diseaseOtherText"
+                                        name="diseaseOtherText" placeholder="กรุณาระบุ" disabled>
+                                </div>
+                            </div>
+
+                            <!-- คำถามการสูบบุหรี่ -->
+                            <div id="smokingSection" class="mb-3 hidden">
+                                <label class="form-label">ท่านสูบบุหรี่หรือไม่</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="smoking" id="smoking1"
+                                        value="ไม่สูบ">
+                                    <label class="form-check-label" for="smoking1">ไม่สูบ</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="smoking" id="smoking2"
+                                        value="สูบ">
+                                    <label class="form-check-label" for="smoking2">สูบ</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="smoking" id="smoking3"
+                                        value="เคยสูบแต่เลิกสูบแล้ว">
+                                    <label class="form-check-label" for="smoking3">เคยสูบแต่เลิกสูบแล้ว</label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div><br>
+
+                <div class="card" style="color: white;">
+                    <div class="card-header bg-primary">
+                        หัวข้อ
+                    </div>
+                    <ul class="list-group list-group-flush m-3">
+                        <li class="list-group-item">
+                        </li>
+                    </ul>
+                </div><br>
+
+                <div class="card" style="color: white;">
+                    <div class="card-header bg-primary">
+                        ส่วนที่ 3 พฤติกรรมการป้องกันฝุ่น PM2.5
+                    </div>
+                    <ul class="list-group list-group-flush m-3">
+                        <li class="list-group-item">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>หัวข้อ</th>
+                                        <th>ปฏิบัติเป็นประจำ</th>
+                                        <th>ปฏิบัติบางครั้ง</th>
+                                        <th>ไม่เคยปฏิบัติ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ตรวจเช็คค่าฝุ่น PM2.5 ก่อนออกจากที่พักอาศัย</td>
+                                        <td><input type="radio" name="row1" value="ปฏิบัติเป็นประจำ" required></td>
+                                        <td><input type="radio" name="row1" value="ปฏิบัติบางครั้ง"></td>
+                                        <td><input type="radio" name="row1" value="ไม่เคยปฏิบัติ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ลดระยะเวลาการออกทำกิจกรรมนอกที่พักอาศัย</td>
+                                        <td><input type="radio" name="row2" value="ปฏิบัติเป็นประจำ" required></td>
+                                        <td><input type="radio" name="row2" value="ปฏิบัติบางครั้ง"></td>
+                                        <td><input type="radio" name="row2" value="ไม่เคยปฏิบัติ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>งดออกกำลังกายกลางแจ้ง</td>
+                                        <td><input type="radio" name="row3" value="ปฏิบัติเป็นประจำ" required></td>
+                                        <td><input type="radio" name="row3" value="ปฏิบัติบางครั้ง"></td>
+                                        <td><input type="radio" name="row3" value="ไม่เคยปฏิบัติ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ปิดประตูหน้าต่างของที่พักอาศัยให้มิดชิด</td>
+                                        <td><input type="radio" name="row4" value="ปฏิบัติเป็นประจำ" required></td>
+                                        <td><input type="radio" name="row4" value="ปฏิบัติบางครั้ง"></td>
+                                        <td><input type="radio" name="row4" value="ไม่เคยปฏิบัติ"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div><br>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">ส่งข้อมูล</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    function toggleOtherInput() {
+        const occupationSelect = document.getElementById("occupation");
+        const otherOccupationDiv = document.getElementById("other-occupation-div");
+        const otherOccupationInput = document.getElementById("other-occupation");
+
+        if (occupationSelect.value === "อื่น") {
+            otherOccupationDiv.style.display = "block"; // แสดง input
+            otherOccupationInput.required = true; // บังคับให้กรอก
+        } else {
+            otherOccupationDiv.style.display = "none"; // ซ่อน input
+            otherOccupationInput.required = false; // ยกเลิกการบังคับกรอก
+            otherOccupationInput.value = ""; // ล้างข้อมูลในช่อง input
+        }
+    }
+
+    function toggleDiseaseSection(showDisease) {
+        const diseaseSection = document.getElementById("diseaseSection");
+        const smokingSection = document.getElementById("smokingSection");
+        const diseaseCheckboxes = diseaseSection.querySelectorAll("input[type='checkbox']");
+        const diseaseOtherText = document.getElementById("diseaseOtherText");
+        const smokingRadios = smokingSection.querySelectorAll("input[type='radio']");
+
+        if (showDisease) {
+            // แสดงส่วนโรคประจำตัว
+            diseaseSection.classList.remove("hidden");
+            smokingSection.classList.add("hidden");
+            // รีเซ็ตการเลือกของส่วนสูบบุหรี่
+            smokingRadios.forEach(radio => {
+                radio.checked = false;
+            });
+        } else {
+            // ซ่อนส่วนโรคประจำตัวและล้างค่า
+            diseaseSection.classList.add("hidden");
+            smokingSection.classList.remove("hidden");
+            diseaseCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            diseaseOtherText.value = "";
+            diseaseOtherText.disabled = true;
+        }
+    }
+
+    document.getElementById("diseaseOther").addEventListener("change", function () {
+        const diseaseOtherText = document.getElementById("diseaseOtherText");
+        if (this.checked) {
+            diseaseOtherText.disabled = false;
+        } else {
+            diseaseOtherText.disabled = true;
+            diseaseOtherText.value = "";
+        }
+    });
+</script>
